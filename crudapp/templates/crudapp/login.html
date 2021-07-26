@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="shortcut icon" href="{% static 'crudapp/logo.jpg' %}" alt="TCS"/>
+    <link href="{% static 'crudapp/style.css' %}" rel="stylesheet">
+    <link href="{% static 'crudapp/fontawesome-free-5.15.1/css/all.min.css' %}" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Login Form</span></div>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" maxlength="20" name="username" placeholder="Username " required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" maxlength="10" name="password" placeholder="Password" required>
+          </div>
+          <div class="row button">
+            <p>{{error}}</p>
+            <input type="submit" value="Login">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>

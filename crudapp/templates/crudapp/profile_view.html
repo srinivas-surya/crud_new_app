@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Profile</title>
+    <link rel="shortcut icon" href="{% static 'crudapp/logo.jpg' %}" alt="TCS"/>
+    <link href="{% static 'crudapp/style1.css' %}" rel="stylesheet">
+    <link href="{% static 'crudapp/fontawesome-free-5.15.1/css/all.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'crudapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'crudapp/css/bootstrap-theme.min.css' %}">
+    <script src="{% static 'crudapp/css/jquery.min.js' %}"></script>
+    <script src="{% static 'crudapp/css/bootstrap.min.js' %}"></script>
+    <script type="text/javascript">
+function confirmDeleteModal(id){
+    $('#deleteModal').modal();
+	$('#deleteButton').html('<a class="btn btn-danger" onclick="deleteData('+id+')">Delete</a>');
+}
+</script>
+<style>
+#scroll {
+  overflow-y: auto;
+  height: 550px;
+  width:98%;
+}
+</style>
+</head>
+<body>
+<div class="content" style="width:100%;">
+    <a style="position:fixed;right:40px;top:20px;" href="{% url 'user_login' %}" class="btn btn-info btn-md">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+    <button class="btn btn-primary" style="position:fixed;left:40px;top:20px;"><a style="text-decoration:none;color:white;" href="{% url 'profile_create' %}">Create</a></button>
+    <div class="well" style="top:70px;position:absolute;" id="scroll">
+        <table class="table table-bordered" style="width:100%;" >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Past Address</th>
+                <th>Current address</th>
+                <th>Phone Number</th>
+                <th style="width: 200px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.past_address}}</td>
+                <td>{{i.present_address}}</td>
+                <td>{{i.phone_number}}</td>
+                <td>
+                    <button class="btn btn-info"><a style="text-decoration:none;color:#fff;" href="{% url 'profile_update' pk=i.id %}"><i class="fas fa-edit"></i> Edit</a></button>
+                    <button type="button" class="btn btn-danger"><a style="text-decoration:none;color:#fff;" href= "{% url 'profile_delete' pk=i.id %}"><i class="fas fa-trash-alt"></i> Delete</a></button>
+                </td>
+             {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

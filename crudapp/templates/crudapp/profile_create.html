@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Profile</title>
+  <link rel="shortcut icon" href="{% static 'crudapp/logo.jpg' %}" alt="TCS"/>
+  <link href="{% static 'crudapp/style1.css' %}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'crudapp/fontawesome-free-5.15.1/css/all.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'crudapp/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'crudapp/css/bootstrap-theme.min.css' %}">
+  <script src="{% static 'crudapp/css/jquery.min.js' %}"></script>
+  <script src="{% static 'crudapp/css/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container">
+  <a style="position:fixed;right:40px;top:20px;" href="{% url 'user_login' %}" class="btn btn-info btn-md">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </a>
+  <div class="title">Registration</div>
+  <div class="content">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Name</span>
+          <input type="text" name="name" maxlength="20" placeholder="Enter your name"  required>
+        </div>
+        <div class="input-box">
+          <span class="details">Past Address</span>
+          <input type="text" name="past_address" maxlength="240" placeholder="Enter your Past Address" required>
+        </div>
+        <div class="input-box">
+          <span class="details">Address</span>
+          <input type="text" name="present_address" maxlength="240" placeholder="Enter your Address" required>
+        </div>
+        <div class="input-box">
+          <span class="details">Phone Number</span>
+          <input class="number" type="number" name="phone_number" maxlength="10" placeholder="Enter your number" required>
+        </div>
+      </div>
+      <div class="button">
+        <p>{{error}}</p>
+        <input type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  var inputQuantity = [];
+    $(function() {
+      $(".number").on("keyup", function (e) {
+        var $field = $(this),
+            val=this.value,
+            $thisIndex=parseInt($field.data("idx"),10);
+        if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid") ) {
+            this.value = inputQuantity[$thisIndex];
+            return;
+        }
+        if (val.length > Number($field.attr("maxlength"))) {
+          val=val.slice(0, 10);
+          $field.val(val);
+        }
+        inputQuantity[$thisIndex]=val;
+      });
+    });
+
+</script>
+</body>
+</html>
